@@ -1,0 +1,21 @@
+<% if users.any? %>
+  <ul class="media-list">
+    <table class="table table-striped table-bordered">
+      <tr>
+        <th class=“text-center”>アイコン</th>
+        <th class=“text-center”>ダイバー名</th>
+        <th class=“text-center”>経験ダイブ数</th>
+        <th class=“text-center”>友達申請</th>
+      </tr>
+      <% users.each do |user| %>
+        <tr>
+          <td class=“text-right”><span class="trim-image-to-circle"><%= profile_image(user) %></span></td>
+          <td class=“text-right”><%= link_to user.name, user_path(user) %></td>
+          <td class=“text-right”><%=  Log.where(id: user.belonged_ids).count %></td>
+          <td class=“text-right”><%= render 'relationships/follow_button', user: user %></td>
+        </tr>
+      <% end %>
+    </table>
+  </ul>
+  <%= paginate users %>
+<% end %>

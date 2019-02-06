@@ -1,0 +1,102 @@
+<% if logged_in? %>
+  <div class="row">
+    <div class="col-xs-offset-2 col-xs-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">ログ記入</div>
+          <div class="panel-body">
+            <%= form_for(@log) do |f| %>
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :dove_on, '日付' %>
+                <%= f.date_field :dove_on, class: 'form-control' %>
+              </div>
+              </div>
+
+              <div class="form-group">
+              <div class="col-xs-6">
+                <%= f.label :dove_in_at, '開始時間' %>
+                <%= f.time_field :dove_in_at, class: 'form-control' %>
+              </div>
+              </div>
+          
+              <div class="form-group">
+              <div class="col-xs-6">
+                <%= f.label :dove_out_at, '終了時間' %>
+                <%= f.time_field :dove_out_at, class: 'form-control' %>
+              </div>
+              </div>
+
+              <div class="form-group">
+              <div class="col-xs-6">
+                <%= f.label :dove_time, '潜水時間' %>
+                <div id="diveresult"></div>
+                <%#= f.time_field :dove_time, class: 'form-control' %>
+
+                <%#= f.hidden_field :xxxx, class: 'form-control' %>
+              </div>
+              
+              
+              <div class="col-xs-6">
+                 <a href="#" id="calc_time" class="btn btn-xs btn-success">潜水時間算出</a>
+              </div>
+
+              <div class="clearfix"></div>
+              
+              
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :depth_ave, '平均深さ(m)' %>
+                <%= f.number_field :depth_ave, class: 'form-control',:step => 0.1%>
+              </div>
+              </div>
+              
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :depth_max, '最大深さ(m)' %>
+                <%= f.number_field :depth_max, class: 'form-control', :step => 0.1%>
+              </div>
+              </div>
+              
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :location, '場所' %>
+                <%= f.text_field :location, class: 'form-control' %>
+              </div>
+              </div>
+              
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :creature, '出会った生物' %>
+                <%= f.text_field :creature, class: 'form-control' %>
+              </div>
+              </div>
+              
+              <div class="form-group">
+              <div class="col-xs-12">
+                <%= f.label :members, 'メンバー(友達から選択してください）' %>
+                <%= f.nested_fields_for :members, wrapper_tag: :div do |m| %>
+                  <%= m.collection_select :user_id, User.where(id: current_user.following_ids.unshift(current_user.id)), :id, :name, class: 'form-control' %>
+                  <%= m.remove_nested_fields_link 'Delete', class: 'btn btn-danger', role: 'button' %>
+                <% end %>
+                <%= f.add_nested_fields_link :members, 'Add new', class: 'btn btn-primary', role: 'button' %>
+              </div>
+              </div>
+              
+              <div class="text-right">
+                <%= f.submit '登録する', class: 'btn btn-success' %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <div class="center jumbotron">
+    <div class="text-center">
+      <h1>Divers Log</h1>
+      <%= link_to '新規登録', signup_path , class:'btn btn-lg btn-primary' %>
+      <%= link_to 'ログイン', login_path , class:'btn btn-lg btn-primary' %>
+    </div>
+  </div>
+<% end %>

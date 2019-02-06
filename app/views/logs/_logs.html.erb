@@ -1,0 +1,36 @@
+<ul class="media-list">
+  <% logs.each do |log| %>
+    <div class="row">
+      <div class="col-xs-offset-2 col-xs-8">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="panel-title pull-left"> 
+              ログ
+            </span>
+		        <span class="pull-right">
+              <% if log.in_member(current_user) %>
+                <%= link_to "Delete", log, method: :delete, data: { confirm: "全員に対してログが消えてしまいます。本当に消しますか？" }, class: 'btn btn-danger btn-xs' %>
+              <% end %>
+            </span>
+            <div class="clearfix"></div>
+    	    </div>
+        	<ul class="list-group">
+        		<li class="list-group-item">日付: <%= log.dove_on %></li>
+        		<li class="list-group-item">開始時間: <%= l(log.dove_in_at, format:"%H:%M") %></li>
+        		<li class="list-group-item">終了時間: <%= l(log.dove_out_at, format:"%H:%M") %></li>
+        		<li class="list-group-item">平均深さ: <%= log.depth_ave %>m</li>
+        		<li class="list-group-item">最大深さ: <%= log.depth_max %>m</li>
+        		<li class="list-group-item">場所: <%= log.location %></li>
+        		<li class="list-group-item">出会った生物: <%= log.creature %></li>
+        		<li class="list-group-item">メンバー: <% log.dove_togethers.each do |member| %><%= member.name + " " %><% end %></li>
+        		<% if log.in_member(current_user) %>
+          		<li class="list-group-item"><%= link_to 'メッセージ送信', new_message_path(log_id: log.id) %></li>
+          		<li class="list-group-item"><%= link_to 'メッセージ一覧', messages_path(log_id: log.id) %></li>
+          	<% end %>
+        	</ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate logs %>
+</ul>
