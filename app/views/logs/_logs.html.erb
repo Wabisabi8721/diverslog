@@ -18,6 +18,7 @@
         		<li class="list-group-item">日付: <%= log.dove_on %></li>
         		<li class="list-group-item">開始時間: <%= l(log.dove_in_at, format:"%H:%M") %></li>
         		<li class="list-group-item">終了時間: <%= l(log.dove_out_at, format:"%H:%M") %></li>
+        		<li class="list-group-item">潜水時間: <%= l(log.dove_time, format:"%H:%M") %></li>
         		<li class="list-group-item">平均深さ: <%= log.depth_ave %>m</li>
         		<li class="list-group-item">最大深さ: <%= log.depth_max %>m</li>
         		<li class="list-group-item">場所: <%= log.location %></li>

@@ -22,7 +22,6 @@ function calctime () {
     var divecalc_hour = Math.floor(divecalc / 60);
     var divecalc_min = divecalc % 60;
     
-    $("#diveresult").html(('00' + divecalc_hour).slice(-2) + ":" + ('00' + divecalc_min).slice(-2));
     $("#log_dove_time").val(('00' + divecalc_hour).slice(-2) + ":" + ('00' + divecalc_min).slice(-2));
     
 }

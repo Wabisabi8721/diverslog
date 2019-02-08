@@ -6,7 +6,6 @@ class Log < ApplicationRecord
   validates :dove_in_at, presence: true
   validates :dove_out_at, presence: true
   validates :dove_time, presence: true
-  validates :total_min, presence: true
   validates :depth_ave, presence: true
   validates :depth_max, presence: true
   validates :location, presence: true

@@ -25,7 +25,6 @@ ActiveRecord::Schema.define(version: 20181011132446) do
     t.datetime "updated_at",               null: false
     t.integer  "sequential_id"
     t.time     "dove_time"
-    t.integer  "total_min"
     t.index ["user_id"], name: "index_logs_on_user_id", using: :btree
   end
 
