@@ -7,9 +7,9 @@ class MessagesController < ApplicationController
   end
   
   def new
-    @log = Log.where(id: current_user.belonged_ids).find_by(id: params[:log_id])
-    session[:log_id] = @log.id
     @message = Message.new
+    @log = Log.where(id: current_user.belonged_ids).find_by(id: params[:log_id])
+    #session[:log_id] = @log.id
     @messages = @log.messages.order('created_at DESC').page(params[:page])
     @members = @log.dove_togethers.where.not(id: current_user.id)
   end
@@ -22,7 +22,7 @@ class MessagesController < ApplicationController
         flash[:success] = 'メッセージを送信しました。'
         redirect_to new_message_url
       else
-        @messages = current_user.messages.order('created_at DESC').page(params[:page])
+        @messages = current_log.messages.order('created_at DESC').page(params[:page])
         flash.now[:danger] = 'メッセージの送信に失敗しました。'
         render 'messages/new'
       end

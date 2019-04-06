@@ -24,10 +24,7 @@
         		<li class="list-group-item">場所: <%= log.location %></li>
         		<li class="list-group-item">出会った生物: <%= log.creature %></li>
         		<li class="list-group-item">メンバー: <% log.dove_togethers.each do |member| %><%= member.name + " " %><% end %></li>
-        		<% if log.in_member(current_user) %>
-          		<li class="list-group-item"><%= link_to 'メッセージ送信', new_message_path(log_id: log.id) %></li>
-          		<li class="list-group-item"><%= link_to 'メッセージ一覧', messages_path(log_id: log.id) %></li>
-          	<% end %>
+        		<%# 一旦メッセージ機能は停止 %>
         	</ul>
         </div>
       </div>
